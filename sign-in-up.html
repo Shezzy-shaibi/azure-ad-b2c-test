@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Sign In to Permit Portal</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#0b3e1f" />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap"
+    />
+    <link
+      rel="stylesheet"
+      href="https://bhpermitportal.azurewebsites.net/b2c/style.css"
+    />
+    <link
+      rel="stylesheet"
+      href="https://bhpermitportal.azurewebsites.net/b2c/UnifiedSignUpSignIn.css"
+    />
+  </head>
+  <body>
+    <h1 class="main-title">Welcome to the Permit Portal!</h1>
+    <div class="container">
+      <div class="instructions">
+        This step provides individualized access to the Permit Portal. From this
+        screen you can:
+        <ol>
+          <li>SIGN-UP &mdash; to Create a new account, or</li>
+          <li>
+            SIGN-IN &mdash; IF you have previously entered both an email address
+            (username) <span class="underlined">AND PASSWORD</span>
+          </li>
+        </ol>
+       <h3> If you are seeing this screen for the first time &mdash; please select
+        <span class="underlined">SIGN UP NOW</span>. </h3>
+        <button class="signin-button">SIGN IN</button>
+
+      </div>
+      <h2 class="form-title">Sign In</h2>
+      <div id="api" style="display: none">
+        <!-- Leave this element empty because Azure AD B2C will insert content here. -->
+      </div>
+      <div class="powered-by">
+        <img
+          id="logo"
+          src="https://bhpermitportal.azurewebsites.net/b2c/Ranger.png"
+          aria-describedby="logoCaption"
+        />
+        <span id="logoCaption">Powered by RangerSST</span>
+      </div>
+    </div>
+    <script>
+        (function () {
+        // The forgot password redirects to the app with an error.
+        // Instead, have it go straight to the reset screen.
+        $("#forgotPassword").click(function (e) {
+          e.preventDefault();
+          window.location.href = window.location.href.replace(
+            /B2C_1_signupsignin1/gi,
+            "B2C_1_passwordreset1",
+          );
+        });
+      })();
+
+      function toggleFormVisibility() {
+        var signinForm = document.querySelector(".form-title");
+        var apiContainer = document.getElementById("api");
+
+        if (signinForm.style.display === "none") {
+          signinForm.style.display = "block";
+          apiContainer.style.display = "block";
+        } else {
+          signinForm.style.display = "none";
+          apiContainer.style.display = "none";
+        }
+      }
+
+      document.querySelector(".signin-button").addEventListener("click", function () {
+        toggleFormVisibility();
+      });
+
+      function makePwdToggler(pwd) {
+        // Create show-password checkbox
+        var checkbox = document.createElement("input");
+        checkbox.setAttribute("type", "checkbox");
+        var id = pwd.id + "toggler";
+        checkbox.setAttribute("id", id);
+
+        var label = document.createElement("label");
+        label.setAttribute("for", id);
+        label.appendChild(document.createTextNode("show password"));
+
+        var div = document.createElement("div");
+        div.appendChild(checkbox);
+        div.appendChild(label);
+
+        // Add show-password checkbox under password input
+        pwd.insertAdjacentElement("afterend", div);
+
+        // Add toggle password callback
+        function toggle() {
+          if (pwd.type === "password") {
+            pwd.type = "text";
+          } else {
+            pwd.type = "password";
+          }
+        }
+        checkbox.onclick = toggle;
+        // For non-mouse usage
+        checkbox.onkeydown = toggle;
+      }
+
+      function setupPwdTogglers() {
+        var pwdInputs = document.querySelectorAll("input[type=password]");
+        for (var i = 0; i < pwdInputs.length; i++) {
+          makePwdToggler(pwdInputs[i]);
+        }
+      }
+
+      function upgradeCreate() {
+        $(".create").insertBefore(".form-title").css("font-size", "1.25em");
+        $(".create a")
+          .css("background-color", "#0b3e1f")
+          .css("color", "#fff")
+          .css(
+            "box-shadow",
+            "0px 3px 1px -2px rgb(0 0 0 / 20%), 0px 2px 2px 0px rgb(0 0 0 / 14%), 0px 1px 5px 0px rgb(0 0 0 / 12%)",
+          )
+          .css("padding", "6px 16px")
+          .css("font-size", "0.875rem")
+          .css("min-width", "64px")
+          .css("font-family", '"Roboto", "Helvetica", "Arial", sans-serif')
+          .css("font-weight", "500")
+          .css("line-height", "1.75")
+          .css("border-radius", "4px")
+          .css("letter-spacing", "0.02857em")
+          .css("text-transform", "uppercase")
+          .css("border", "0")
+          .css("cursor", "pointer");
+      }
+
+      setupPwdTogglers();
+      upgradeCreate();
+    </script>
+  </body>
+</html>
