@@ -62,6 +62,23 @@
           );
         });
       })();
+       function toggleFormVisibility() {
+        var signinForm = document.querySelector(".form-title");
+        var apiContainer = document.getElementById("api");
+
+        if (signinForm.style.display === "none") {
+          signinForm.style.display = "block";
+          apiContainer.style.display = "block";
+        } else {
+          signinForm.style.display = "none";
+          apiContainer.style.display = "none";
+        }
+      }
+
+      document.querySelector(".signin-button").addEventListener("click", function () {
+        toggleFormVisibility();
+      });
+
 
       function makePwdToggler(pwd) {
         // Create show-password checkbox
