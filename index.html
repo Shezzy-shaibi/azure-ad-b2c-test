@@ -21,27 +21,25 @@
     <h1 class="main-title">Welcome to the Permit Portal!</h1>
     <div class="container">
       <div class="instructions">
-        <!-- Your existing instructions here -->
+        This step provides individualized access to the Permit Portal. From this
+        screen you can:
+        <ol>
+          <li>SIGN-UP &mdash; to Create a new account, or</li>
+          <li>
+            SIGN-IN &mdash; IF you have previously entered both an email address
+            (username) <span class="underlined">AND PASSWORD</span>
+          </li>
+        </ol>
+        If you are seeing this screen for the first time &mdash; please select
+        <span class="underlined">SIGN UP NOW</span>.
       </div>
-      <h2 class="form-title">Sign In</h2>
-      <div class="form-controls">
-        <form id="sign-in-form" class="form-control">
-          <!-- Leave this element empty because Azure AD B2C will insert content here. -->
-        </form>
-        <div class="create-account-container">
-          <div class="create">
-            <a
-              href="https://bhpermitportal.azurewebsites.net/b2c/B2C_1_signupsignin1"
-              class="sign-in-btn"
-            >
-              Sign Up Now
-            </a>
-          </div>
-          <div class="form-control">
-            <label>If you already have an account</label>
-            <button id="show-sign-in" class="sign-in-btn">Sign In</button>
-          </div>
-        </div>
+      <div class="form-control"> 
+      <label>If you already have an account</label>
+
+      <button id="show-sign-in" class="sign-in-btn">Sign In</button>
+      <div id="api">
+        <!-- Leave this element empty because Azure AD B2C will insert content here. -->
+      </div>
       </div>
       <div class="powered-by">
         <img
@@ -128,7 +126,7 @@
       setupPwdTogglers();
       upgradeCreate();
 
-
+      
       
     // Adding script to handle Sign In form visibility
     const showSignInButton = document.getElementById("show-sign-in");
@@ -147,7 +145,6 @@
       iframe.setAttribute("height", "500px");
       signInForm.appendChild(iframe);
     });
-
     </script>
   </body>
 </html>
