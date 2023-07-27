@@ -35,7 +35,7 @@
       </div>
       <label>Already have an account?</label>
 
-        <button id="show-sign-in" class="sign-in-btn">Sign In</button>
+        <butto class="sign-in-btn">Sign In</button>
        
 
       <div class="form-control" style="display: none" > 
@@ -55,14 +55,11 @@
     <script>
     function toggleFormVisibility() {
       var signinForm = document.querySelector(".form-control");
-      var apiContainer = document.getElementById("api");
 
       if (signinForm.style.display === "none") {
-        signinForm.style.display = "block";
-        apiContainer.style.display = "block";
+        signinForm.style.display = "block";       
       } else {
         signinForm.style.display = "none";
-        apiContainer.style.display = "none";
       }
     }
       document.querySelector(".sign-in-btn").addEventListener("click", function () {
