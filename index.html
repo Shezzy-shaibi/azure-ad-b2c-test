@@ -35,7 +35,7 @@
       </div>
       <label>Already have an account?</label>
 
-        <butto class="sign-in-btn">Sign In</button>
+        <butto id="sign-in-btn" class="sign-in-btn">Sign In</button>
        
 
       <div class="form-control" style="display: none" > 
@@ -55,9 +55,8 @@
     <script>
     function toggleFormVisibility() {
       var signinForm = document.querySelector(".form-control");
-
       if (signinForm.style.display === "none") {
-        signinForm.style.display = "block";       
+        signinForm.style.display = "block";
       } else {
         signinForm.style.display = "none";
       }
