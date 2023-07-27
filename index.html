@@ -4,7 +4,6 @@
     <title>Sign In to Permit Portal</title>
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="theme-color" content="#0b3e1f" />
-
     <style>
       .main-title {
   color: #7a171c;
@@ -52,6 +51,100 @@
   text-decoration: underline;
 }
 
+
+      /* Universal default styles */
+html {
+  box-sizing: border-box;
+}
+*,
+*::before,
+*::after {
+  box-sizing: inherit;
+}
+body {
+  color: rgba(0, 0, 0, 0.87);
+  margin: 0;
+  font-size: 0.875rem;
+  font-family: "Roboto", "Helvetica", "Arial", sans-serif;
+  font-weight: 400;
+  line-height: 1.43;
+  letter-spacing: 0.01071em;
+}
+.error {
+  color: red;
+}
+.error[aria-hidden="true"] {
+  display: none;
+}
+.error p {
+  margin-top: 0.3em;
+  margin-bottom: 0.1em;
+}
+.container {
+  width: 100%;
+  padding: 16px;
+  max-width: 400px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* Form Fields */
+.entry {
+  display: flex;
+  flex-direction: column;
+}
+.entry-item,
+.attrEntry {
+  margin-top: 8px;
+  margin-bottom: 4px;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+}
+.entry-item label,
+.attrEntry label {
+  padding: 0;
+  font-size: 1rem;
+  line-height: 1;
+  letter-spacing: 0.00938em;
+  font-weight: 500;
+}
+.entry-item input,
+.attrEntry input {
+  padding: 10.5px 14px;
+  border: 1px solid rgba(0, 0, 0, 0.23);
+  border-radius: 4px;
+  font-size: 1rem;
+  line-height: 1.1876em;
+  letter-spacing: 0.00938em;
+}
+.password-label {
+  display: flex;
+  justify-content: space-between;
+}
+
+/* Buttons */
+button {
+  background-color: #0b3e1f;
+  color: #fff;
+  box-shadow: 0px 3px 1px -2px rgba(0, 0, 0, 0.2),
+    0px 2px 2px 0px rgba(0, 0, 0, 0.14), 0px 1px 5px 0px rgba(0, 0, 0, 0.12);
+  padding: 6px 16px;
+  font-size: 0.875rem;
+  min-width: 64px;
+  font-family: "Roboto", "Helvetica", "Arial", sans-serif;
+  font-weight: 500;
+  line-height: 1.75;
+  border-radius: 4px;
+  letter-spacing: 0.02857em;
+  text-transform: uppercase;
+  border: 0;
+  cursor: pointer;
+}
+button[disabled] {
+  background-color: #3d5c49;
+  cursor: not-allowed;
+}
     </style>
     <link
       rel="stylesheet"
@@ -79,21 +172,13 @@
             (username) <span class="underlined">AND PASSWORD</span>
           </li>
         </ol>
-        If you are using this screen for the first time &mdash; you must select
+        If you are seeing this screen for the first time &mdash; please select
         <span class="underlined">SIGN UP NOW</span>.
       </div>
-      <label>Already have an account?</label>
-
-        <button id="show-sign-in" class="sign-in-btn">Sign In</button>
-      </div>
-
-      <div class="form-control" style="display: none" > 
-      <div id="api" style="display: none">
+      <h2 class="form-title">Sign In</h2>
+      <div id="api">
         <!-- Leave this element empty because Azure AD B2C will insert content here. -->
       </div>
-      </div>
-      
-       
       <div class="powered-by">
         <img
           id="logo"
@@ -104,26 +189,6 @@
       </div>
     </div>
     <script>
-function toggleFormVisibility() {
-  var signinForm = document.querySelector(".form-control");
-  var apiContainer = document.getElementById("api");
-
-  if (signinForm.style.display === "none") {
-    signinForm.style.display = "block";
-    apiContainer.style.display = "block";
-  } else {
-    signinForm.style.display = "none";
-    apiContainer.style.display = "none";
-  }
-}
-
-
-      document.querySelector(".sign-in-btn").addEventListener("click", function () {
-        toggleFormVisibility();
-      });
-
-
-      
       (function () {
         // The forgot password redirects to the app with an error.
         // Instead, have it go straight to the reset screen.
@@ -135,7 +200,6 @@ function toggleFormVisibility() {
           );
         });
       })();
-
 
       function makePwdToggler(pwd) {
         // Create show-password checkbox
@@ -199,26 +263,6 @@ function toggleFormVisibility() {
 
       setupPwdTogglers();
       upgradeCreate();
-
-      
-      
-    // Adding script to handle Sign In form visibility
-    const showSignInButton = document.getElementById("show-sign-in");
-    const signInForm = document.getElementById("sign-in-form");
-    showSignInButton.addEventListener("click", () => {
-      signInForm.innerHTML = ""; // Clear the form content
-      // Load the sign-in form from Azure AD B2C
-      const iframe = document.createElement("iframe");
-      iframe.setAttribute(
-        "src",
-        "https://bhpermitportal.azurewebsites.net/b2c/B2C_1_signupsignin1"
-      );
-      iframe.setAttribute("frameborder", "0");
-      iframe.setAttribute("scrolling", "no");
-      iframe.setAttribute("width", "100%");
-      iframe.setAttribute("height", "500px");
-      signInForm.appendChild(iframe);
-    });
     </script>
   </body>
 </html>
