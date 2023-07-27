@@ -20,7 +20,7 @@
   <body>
     <h1 class="main-title">Welcome to the Permit Portal!</h1>
     <div class="container">
-      <div>
+      <div class="instructions">
         This step provides individualized access to the Permit Portal. From this
         screen you can:
         <ol>
@@ -30,19 +30,13 @@
             (username) <span class="underlined">AND PASSWORD</span>
           </li>
         </ol>
-        If you are using this screen for the first time &mdash; you must select
+        If you are seeing this screen for the first time &mdash; please select
         <span class="underlined">SIGN UP NOW</span>.
       </div>
-      <label>Already have an account?</label>
-
-        <button id="show-sign-in" class="sign-in-btn">Sign In</button>
-       
-
-      <div class="form-control" style="display: none" > 
-      <div id="api" style="display: none">
+      <h2 class="form-title">Sign In</h2>
+      <div id="api">
         <!-- Leave this element empty because Azure AD B2C will insert content here. -->
       </div>
-      </div> 
       <div class="powered-by">
         <img
           id="logo"
@@ -53,21 +47,6 @@
       </div>
     </div>
     <script>
-function toggleFormVisibility() {
-  var signinForm = document.querySelector(".form-control");
-  var apiContainer = document.getElementById("api");
-
-  if (signinForm.style.display === "none") {
-    signinForm.style.display = "block";
-    apiContainer.style.display = "block";
-  } else {
-    signinForm.style.display = "none";
-    apiContainer.style.display = "none";
-  }
-}
-      document.querySelector(".sign-in-btn").addEventListener("click", function () {
-        toggleFormVisibility();
-      });
       (function () {
         // The forgot password redirects to the app with an error.
         // Instead, have it go straight to the reset screen.
@@ -79,7 +58,6 @@ function toggleFormVisibility() {
           );
         });
       })();
-
 
       function makePwdToggler(pwd) {
         // Create show-password checkbox
@@ -143,7 +121,6 @@ function toggleFormVisibility() {
 
       setupPwdTogglers();
       upgradeCreate();
-    // Adding script to handle Sign In form visibility
     </script>
   </body>
 </html>
