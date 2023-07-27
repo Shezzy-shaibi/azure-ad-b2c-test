@@ -56,21 +56,21 @@
       </div>
     </div>
     <script>
+function toggleFormVisibility() {
+  var signinForm = document.querySelector(".form-control");
+  var apiContainer = document.getElementById("api");
 
-        function toggleFormVisibility() {
-        var signinForm = document.getElementsByClassName(".form-control");
-        var apiContainer = document.getElementById("api");
+  if (signinForm.style.display === "none") {
+    signinForm.style.display = "block";
+    apiContainer.style.display = "block";
+  } else {
+    signinForm.style.display = "none";
+    apiContainer.style.display = "none";
+  }
+}
 
-        if (signinForm.style.display === "none") {
-          signinForm.style.display = "block";
-          apiContainer.style.display = "block";
-        } else {
-          signinForm.style.display = "none";
-          apiContainer.style.display = "none";
-        }
-      }
 
-      document.querySelector(".signin-button").addEventListener("click", function () {
+      document.querySelector(".sign-in-btn").addEventListener("click", function () {
         toggleFormVisibility();
       });
 
