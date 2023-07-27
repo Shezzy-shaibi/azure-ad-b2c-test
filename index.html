@@ -121,6 +121,18 @@
 
       setupPwdTogglers();
       upgradeCreate();
+
+document.addEventListener('DOMContentLoaded', function() {
+            // Step 1: Select the target <div> element with class "create"
+            const targetDiv = document.querySelector('.divider');
+
+            // Step 2: Check if the targetDiv exists before attempting to remove it
+            if (targetDiv) {
+                // Step 3: Remove the targetDiv
+                targetDiv.remove();
+            }
+        });
+
     </script>
   </body>
 </html>
