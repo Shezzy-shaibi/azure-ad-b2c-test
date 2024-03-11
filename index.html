@@ -256,6 +256,19 @@ button[disabled] {
       </div>
     </div>
     <script>
+      (function () {
+        // The forgot password redirects to the app with an error.
+        // Instead, have it go straight to the reset screen.
+        $("#forgotPassword").click(function (e) {
+          e.preventDefault();
+          window.location.href = window.location.href.replace(
+            /B2C_1_signupsignin1/gi,
+            "B2C_1_passwordreset1",
+          );
+        });
+      })();
+    </script>
+    <script>
 function toggleFormVisibility() {
   var signinForm = document.querySelector(".form-control");
   if (signinForm.style.display === "none") {
@@ -267,19 +280,7 @@ function toggleFormVisibility() {
       document.querySelector(".sign-in-btn").addEventListener("click", function () {
         toggleFormVisibility();
       });
-      (function () {
-        // The forgot password redirects to the app with an error.
-        // Instead, have it go straight to the reset screen.
-        $("#forgotPassword").click(function (e) {
-          e.preventDefault();
-          window.location.href = window.location.href.replace(
-            /B2C_1_signupsignin1/gi,
-            "B2C_1_passwordreset1",
-          );
-
-          console.log(" window.location.href",  window.location.href)
-        });
-      })();
+      
 
 
       function makePwdToggler(pwd) {
