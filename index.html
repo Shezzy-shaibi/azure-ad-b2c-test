@@ -8,17 +8,8 @@
       rel="stylesheet"
       href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap"
     />
-    <!-- <link
-      rel="stylesheet"
-      href="https://bhpermitportal.azurewebsites.net/b2c/style.css"
-    />
-    <link
-      rel="stylesheet"
-      href="https://bhpermitportal.azurewebsites.net/b2c/UnifiedSignUpSignIn.css"
-    /> -->
     <style>
-/* Universal default styles */
-html {
+      html {
   box-sizing: border-box;
 }
 *,
@@ -110,59 +101,59 @@ button[disabled] {
   background-color: #3d5c49;
   cursor: not-allowed;
 }
-
+</style>
+    <style>
       .main-title {
-        color: #7a171c;
-        text-align: center;
-      }
-      .container {
-        width: 100%;
-        padding: 16px;
-        max-width: 400px;
-        margin-left: auto;
-        margin-right: auto;
-      }
-      .powered-by {
-        width: 100%;
-        max-width: 200px;
-        margin: auto;
-        text-align: center;
-      }
-      #logo {
-        display: block;
-        width: 60%;
-      }
-      #logoCaption {
-        color: grey;
-      }
-      .form-title {
-        color: #7a171c;
-      }
-      .divider,
-      .intro {
-        display: none;
-      }
-      #createAccount {
-        margin-left: 4px;
-      }
-      .instructions {
-        box-shadow: 0px 2px 1px -1px rgb(0 0 0 / 20%),
-          0px 1px 1px 0px rgb(0 0 0 / 14%), 0px 1px 3px 0px rgb(0 0 0 / 12%);
-        border-radius: 4px;
-        padding: 4px 8px;
-        border-left: 4px solid rgb(11, 62, 31);
-        margin-bottom: 8px;
-      }
-      .underlined {
-        text-decoration: underline;
-      }
-      
-    </style>
+  color: #7a171c;
+  text-align: center;
+}
+.container {
+  width: 100%;
+  padding: 16px;
+  max-width: 400px;
+  margin-left: auto;
+  margin-right: auto;
+}
+.powered-by {
+  width: 100%;
+  max-width: 200px;
+  margin: auto;
+  text-align: center;
+}
+#logo {
+  display: block;
+  width: 60%;
+}
+#logoCaption {
+  color: grey;
+}
+.form-title {
+  color: #7a171c;
+}
+.divider,
+.intro {
+  display: none;
+}
+#createAccount {
+  margin-left: 4px;
+}
+.instructions {
+  box-shadow: 0px 2px 1px -1px rgb(0 0 0 / 20%),
+    0px 1px 1px 0px rgb(0 0 0 / 14%), 0px 1px 3px 0px rgb(0 0 0 / 12%);
+  border-radius: 4px;
+  padding: 4px 8px;
+  border-left: 4px solid rgb(11, 62, 31);
+  margin-bottom: 8px;
+}
+.underlined {
+  text-decoration: underline;
+}
+</style>
   </head>
   <body>
     <h1 class="main-title">Welcome to the Permit Portal!</h1>
     <div class="container">
-      <div class="instructions">
+      <div>
         This step provides individualized access to the Permit Portal. From this
         screen you can:
         <ol>
@@ -172,13 +163,22 @@ button[disabled] {
             (username) <span class="underlined">AND PASSWORD</span>
           </li>
         </ol>
-        If you are seeing this screen for the first time &mdash; please select
-        <span class="underlined">SIGN UP NOW</span>.
+        If you are using this screen for the first time &mdash; you must select SIGN UP NOW
       </div>
-      <h2 class="form-title">Sign In</h2>
+      <div> </div>
+      <div class="form-title"></div>
+      <label style="font-size: 1.25em;">Already have an account?</label>
+
+        <button id="show-sign-in" class="sign-in-btn">Sign In</button>
+       
+
+        
+      <div class="form-control" style="display: none" > 
       <div id="api">
         <!-- Leave this element empty because Azure AD B2C will insert content here. -->
       </div>
+      </div> 
+      <br>
       <div class="powered-by">
         <img
           id="logo"
@@ -189,23 +189,29 @@ button[disabled] {
       </div>
     </div>
     <script>
+function toggleFormVisibility() {
+  var signinForm = document.querySelector(".form-control");
+  if (signinForm.style.display === "none") {
+    signinForm.style.display = "block";
+  } else {
+    signinForm.style.display = "none";
+  }
+}
+      document.querySelector(".sign-in-btn").addEventListener("click", function () {
+        toggleFormVisibility();
+      });
       (function () {
         // The forgot password redirects to the app with an error.
         // Instead, have it go straight to the reset screen.
         $("#forgotPassword").click(function (e) {
-           alert("Reset")
-              
           e.preventDefault();
           window.location.href = window.location.href.replace(
-            "/B2C_1_signupsignin1/gi",
+            /B2C_1_signupsignin1/gi,
             "B2C_1_passwordreset1",
           );
-        
-           console.log(window.location.href)
-         alert(`2ndd alert`, window.location.href)
-         
         });
       })();
+
 
       function makePwdToggler(pwd) {
         // Create show-password checkbox
@@ -245,6 +251,32 @@ button[disabled] {
         }
       }
 
+var observer = new MutationObserver(function(mutations) {
+    var createAccountElement = document.getElementById('createAccount');
+    
+    if (createAccountElement) {
+        var url = $(createAccountElement).attr('href');
+        $(createAccountElement).replaceWith(function() {
+            return $("<button/>", {
+                id: this.id,
+                class: this.className,
+                text: $(this).text(),
+                style: $(this).attr('style'),
+                click: function() {
+                    window.location.href = url;
+                }
+            });
+        });
+
+        // disconnect the observer after we've found the element and performed the replacement
+        observer.disconnect();
+    }
+});
+
+// start observing the document with the configured parameters
+observer.observe(document, { childList: true, subtree: true });
+
+
       function upgradeCreate() {
         $(".create").insertBefore(".form-title").css("font-size", "1.25em");
         $(".create a")
@@ -269,6 +301,8 @@ button[disabled] {
 
       setupPwdTogglers();
       upgradeCreate();
+
+    // Adding script to handle Sign In form visibility
     </script>
   </body>
 </html>
