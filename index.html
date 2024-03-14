@@ -203,20 +203,15 @@ function toggleFormVisibility() {
 
 
       (function () {
-  // When the forgot password link is clicked, redirect directly to the password reset URL.
-  $("#forgotPassword").click(function (e) {
-    e.preventDefault(); // Prevent the default link behavior.
-
-    // Directly set the new URL for the password reset.
-    var newPasswordResetUrl = "https://permitportaltest.b2clogin.com/permitportaltest.onmicrosoft.com/oauth2/v2.0/authorize?p=B2C_1_ResetPassword&client_id=a869c8d8-8461-4be6-8164-ba0bd22f2e37&nonce=defaultNonce&redirect_uri=https%3A%2F%2Ftest1.rangersst.com%2FPermitPortal%2FAuthCallback&scope=openid&response_type=code&prompt=login&code_challenge_method=S256&code_challenge=TPKJW1NM5rdUNEkp0lnmlB6MkH9u-G7gxYdgzA1OOYY";
-
-    // Redirect the browser to the new URL.
-    window.location.href = newPasswordResetUrl;
-
-    // Logging the new URL for debugging purposes (can be removed in production).
-    console.log("Redirecting to URL:", newPasswordResetUrl);
-  });
-})();
+        // The forgot password redirects to the app with an error.
+        // Instead, have it go straight to the reset screen.
+        $("#forgotPassword").click(function (e) {
+          e.preventDefault();
+          window.location.href = window.location.href.replace(
+            "p=B2C_1_SiSu", "p=B2C_1_ResetPassword"
+          );
+        });
+      })();
 
 
 
